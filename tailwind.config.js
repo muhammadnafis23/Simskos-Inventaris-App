@@ -1,6 +1,7 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
 
+const colors = require('tailwindcss/colors')
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -12,8 +13,14 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
             },
+            colors: {
+                'ios-pink': '#FF375F',
+                'ios-blue': '#007AFF',
+                'ios-gray': '#8E8E93',
+                'ios-bg': '#F2F2F7',
+            }
         },
     },
 
