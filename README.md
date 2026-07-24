@@ -71,13 +71,18 @@ php artisan storage:link
 # 7. Compile asset frontend
 npm run build
 
-# 8. Jalankan server
+# 8. Jalankan Aplikasi (Pilih salah satu metode)
+
+# Opsi A: Menggunakan Virtual Host / Laragon (simskos-inventaris.test)
+# Pastikan folder project berada di dalam directory laragon/www/
+# Lalu buka browser dan kunjungi:
+http://simskos-inventaris.test
+
+# Opsi B: Menggunakan Laravel Artisan Serve (localhost:8000)
 php artisan serve
+# Lalu buka browser dan kunjungi:
+http://localhost:8000
 ```
-
-Buka `http://localhost:8000` di browser.
-
----
 
 ## Akun Demo
 
@@ -93,7 +98,7 @@ Buka `http://localhost:8000` di browser.
 ### 1. Autentikasi
 
 **Halaman Login**
-<img width="1914" height="1026" alt="Screenshot 2026-07-24 084150" src="https://github.com/user-attachments/assets/dad535ff-67aa-4468-936b-3acca80b0df7" />
+<img width="1919" height="970" alt="Screenshot 2026-07-24 212133" src="https://github.com/user-attachments/assets/a7adedb8-7cfc-41bf-9b9d-aae3a02910cd" />
 
 **Halaman Register**
 <img width="1911" height="980" alt="Screenshot 2026-07-24 084652" src="https://github.com/user-attachments/assets/8597d177-f7bf-46b8-b166-9ea066de852f" />
@@ -102,28 +107,25 @@ Buka `http://localhost:8000` di browser.
 <img width="1919" height="979" alt="Screenshot 2026-07-24 084815" src="https://github.com/user-attachments/assets/4ad2f707-ca50-4f4c-b2f5-7844b9276af2" />
 
 ### 2. Dashboard
-<img width="1918" height="977" alt="Screenshot 2026-07-24 084922" src="https://github.com/user-attachments/assets/f2c2f759-8a8d-4cfd-b0d1-42e9b2e1e012" />
-
+<img width="1918" height="973" alt="Screenshot 2026-07-24 212227" src="https://github.com/user-attachments/assets/3fe7a6f1-5a30-4e6d-bce1-d29a8484babe" />
 ### 3. CRUD Produk
 
 **Daftar Produk**
-<img width="1917" height="982" alt="Screenshot 2026-07-24 084944" src="https://github.com/user-attachments/assets/98abbdf0-599f-43bd-bbca-8dec245d196b" />
+<img width="1919" height="971" alt="Screenshot 2026-07-24 212304" src="https://github.com/user-attachments/assets/ec9ab8c6-4bee-45fa-a3e8-f6a33a4470db" />
 **Tambah Produk**
-<img width="1919" height="977" alt="Screenshot 2026-07-24 085009" src="https://github.com/user-attachments/assets/43c3dc62-cd98-4746-a00a-7ef6c5c198b1" />
-
+<img width="1919" height="970" alt="Screenshot 2026-07-24 212345" src="https://github.com/user-attachments/assets/ff58cd4e-778b-43a4-8416-4692de97e993" />
 **Edit Produk**
-<img width="1918" height="979" alt="Screenshot 2026-07-24 085036" src="https://github.com/user-attachments/assets/b7bcffdf-b233-4aea-89f9-7a6f44392fcc" />
-
+<img width="1919" height="970" alt="Screenshot 2026-07-24 212431" src="https://github.com/user-attachments/assets/0dce6af5-ba25-4a04-be76-000d6cd3a598" />
 ### 4. Kategori
-<img width="1914" height="977" alt="Screenshot 2026-07-24 085104" src="https://github.com/user-attachments/assets/f1bc0352-d7b3-4524-93aa-0d66690e393b" />
+<img width="1919" height="970" alt="Screenshot 2026-07-24 212457" src="https://github.com/user-attachments/assets/a0764247-01d8-40e4-9e08-e517e6432560" />
 
 ### 5. Manajemen Stok
 
 **Input Stok (dengan search bar)**
-<img width="1913" height="977" alt="Screenshot 2026-07-24 090606" src="https://github.com/user-attachments/assets/2f710acd-1954-4c31-865e-44b38f827e95" />
+<img width="1919" height="972" alt="Screenshot 2026-07-24 212545" src="https://github.com/user-attachments/assets/71035491-2c57-480a-9795-19f7555a714e" />
 
 **Riwayat Stok**
-<img width="1915" height="983" alt="Screenshot 2026-07-24 090739" src="https://github.com/user-attachments/assets/edb9e2f0-b1ab-44b8-b0eb-ddded8c44a3a" />
+<img width="1919" height="971" alt="Screenshot 2026-07-24 212809" src="https://github.com/user-attachments/assets/dd815493-fbe6-4b59-be1f-091562c49b2c" />
 
 ### 6. REST API — Pengujian Postman
 
@@ -145,22 +147,21 @@ Buka `http://localhost:8000` di browser.
 ### 7. Hak Akses Admin vs Staff
 
 **Tampilan Sidebar Admin**
-<img width="537" height="980" alt="Screenshot 2026-07-24 091530" src="https://github.com/user-attachments/assets/37a1338d-deb0-4df6-a55f-d84936a5f6b9" />
+<img width="770" height="968" alt="Screenshot 2026-07-24 212907" src="https://github.com/user-attachments/assets/ec02c4f5-0f25-40a9-a3a0-73528e1505d3" />
 
 **Tampilan Sidebar Staff**
-<img width="308" height="629" alt="Screenshot 2026-07-24 091554" src="https://github.com/user-attachments/assets/50e3f5dc-daaa-4cf8-863e-bc61d3fc55fc" />
+<img width="733" height="970" alt="Screenshot 2026-07-24 212951" src="https://github.com/user-attachments/assets/686307de-1a8a-4c52-bcd5-40942aba821c" />
 
 ### 8. Responsive Design
 
 **Tampilan Desktop**
-<img width="1915" height="986" alt="Screenshot 2026-07-24 091628" src="https://github.com/user-attachments/assets/0a306981-7c04-4039-86c1-fcafb1c2f8ba" />
-
+<img width="1919" height="972" alt="Screenshot 2026-07-24 213035" src="https://github.com/user-attachments/assets/9cb4d926-1028-45b9-8c65-6a77c7f6f1a9" />
 **Tampilan Mobile**
-<img width="1913" height="1027" alt="Screenshot 2026-07-24 091712" src="https://github.com/user-attachments/assets/902d0eac-6928-4cef-98df-d5bcad90610a" />
+<img width="1920" height="1080" alt="Tampilan Mobile" src="https://github.com/user-attachments/assets/6d4ef8dc-47f4-4916-a246-e53a2308fb6c" />
 ### 9. Export Laporan
 
 **Preview Laporan**
-<img width="1911" height="975" alt="Screenshot 2026-07-24 091730" src="https://github.com/user-attachments/assets/b02b6cb0-90e6-45f5-af6c-409593e3e14a" />
+<img width="1919" height="970" alt="Screenshot 2026-07-24 213723" src="https://github.com/user-attachments/assets/6655be67-f157-4dc7-b5ee-aa182684fa6e" />
 
 **Hasil Export PDF**
 <img width="1919" height="1041" alt="Screenshot 2026-07-24 091805" src="https://github.com/user-attachments/assets/07ab24bb-4b06-447e-9cba-609d01dfcf46" />
