@@ -1,13 +1,13 @@
 <x-layouts.app title="Brand">
 
-    <div class="mb-8 flex items-start justify-between gap-4">
+    <div class="mb-6 sm:mb-8 flex flex-col sm:flex-row sm:items-start justify-between gap-4">
         <div>
             <p class="text-[13px] font-semibold text-[#114F11] uppercase tracking-wide mb-1">Produk</p>
-            <h1 class="text-[32px] font-bold text-[#1C1C1E] tracking-tight">Daftar Brand</h1>
-            <p class="text-[15px] text-[#8E8E93] mt-1">{{ $brands->total() }} brand terdaftar</p>
+            <h1 class="text-2xl sm:text-[32px] font-bold text-[#1C1C1E] tracking-tight">Daftar Brand</h1>
+            <p class="text-[14px] sm:text-[15px] text-[#8E8E93] mt-1">{{ $brands->total() }} brand terdaftar</p>
         </div>
         @if(auth()->user()->role === 'admin')
-        <a href="{{ route('brands.create') }}" class="shrink-0 inline-flex items-center gap-1.5 bg-[#114F11] text-white text-[14px] font-semibold px-4 py-2.5 rounded-full hover:bg-[#0D3D0D] transition-colors">
+        <a href="{{ route('brands.create') }}" class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-1.5 bg-[#114F11] text-white text-[14px] font-semibold px-4 py-2.5 rounded-full hover:bg-[#0D3D0D] transition-colors">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
             Tambah Brand
         </a>

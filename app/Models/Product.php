@@ -3,16 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Product extends Model
 {
     protected $fillable = [
-        'name', 
-        'category_id', 
+        'category_id',
         'brand_id',
-        'price', 
-        'stock', 
-        'description'
+        'sku',
+        'name',
+        'purchase_price',
+        'selling_price', // <-- Gunakan 'selling_price' sesuai nama kolom DB
+        'stock',
+        'min_stock',
     ];
 
     public function category()

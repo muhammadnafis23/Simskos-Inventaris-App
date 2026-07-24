@@ -1,16 +1,16 @@
 <x-layouts.app title="Kategori">
 
-    <div class="mb-8">
+    <div class="mb-6 sm:mb-8">
         <p class="text-[13px] font-semibold text-[#114F11] uppercase tracking-wide mb-1">Produk</p>
-        <h1 class="text-[32px] font-bold text-[#1C1C1E] tracking-tight">Kategori</h1>
+        <h1 class="text-2xl sm:text-[32px] font-bold text-[#1C1C1E] tracking-tight">Kategori</h1>
     </div>
 
-    <div class="ios-card p-5 mb-6">
-        <form method="POST" action="{{ route('categories.store') }}" class="flex gap-3">
+    <div class="ios-card p-4 sm:p-5 mb-6">
+        <form method="POST" action="{{ route('categories.store') }}" class="flex flex-col sm:flex-row gap-3">
             @csrf
             <input type="text" name="name" placeholder="Nama kategori baru" required
                 class="flex-1 rounded-xl border-black/10 bg-[#F2F2F7] focus:bg-white focus:ring-2 focus:ring-[#114F11]/30 focus:border-[#114F11] text-[15px] px-4 py-2.5">
-            <button type="submit" class="bg-[#114F11] text-white text-[14px] font-semibold px-5 rounded-xl hover:bg-[#0D3D0D]">Tambah</button>
+            <button type="submit" class="bg-[#114F11] text-white text-[14px] font-semibold px-5 py-2.5 rounded-xl hover:bg-[#0D3D0D] w-full sm:w-auto">Tambah</button>
         </form>
         @error('name') <p class="text-[12px] text-[#FF3B30] mt-2">{{ $message }}</p> @enderror
     </div>
