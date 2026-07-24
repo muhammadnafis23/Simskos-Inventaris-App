@@ -8,11 +8,29 @@ use App\Models\Brand;
 use App\Models\Product;
 use Illuminate\Support\Str;
 
-class ProductSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. DATA BRAND & PRODUK
+        // 1. DATA KATEGORI
+        $categoriesData = [
+            'Skincare',
+            'Bodycare',
+            'Haircare',
+            'Makeup & Cosmetics',
+            'Personal Care & Hygiene',
+            'Tissue & Baby Care'
+        ];
+
+        $categories = [];
+        foreach ($categoriesData as $catName) {
+            $categories[$catName] = Category::create([
+                'name' => $catName,
+                'slug' => Str::slug($catName),
+            ]);
+        }
+
+        // 2. DATA BRAND & PRODUK
         $brandsData = [
             'Wardah' => [
                 'cat' => 'Skincare',
@@ -20,7 +38,7 @@ class ProductSeeder extends Seeder
                     ['name' => 'Wardah Lightening Day Cream 30g', 'cost' => 38000, 'price' => 45000, 'stock' => 25, 'min' => 5],
                     ['name' => 'Wardah Perfect Bright Facial Wash 100ml', 'cost' => 22000, 'price' => 28000, 'stock' => 18, 'min' => 5],
                     ['name' => 'Wardah Everyday Lip Nutrition 4g', 'cost' => 20000, 'price' => 26000, 'stock' => 12, 'min' => 3],
-                    ['name' => 'Wardah Exclusive Matte Lip Cream 03', 'cost' => 52000, 'price' => 62000, 'stock' => 4, 'min' => 5],
+                    ['name' => 'Wardah Exclusive Matte Lip Cream 03', 'cost' => 52000, 'price' => 62000, 'stock' => 4, 'min' => 5], // trigger low stock
                 ]
             ],
             'Emina' => [
@@ -36,7 +54,7 @@ class ProductSeeder extends Seeder
                 'products' => [
                     ['name' => 'Kahf Oil and Acne Care Face Wash 100ml', 'cost' => 31000, 'price' => 38000, 'stock' => 22, 'min' => 5],
                     ['name' => 'Kahf Humbling Forest Eau de Toilette 100ml', 'cost' => 62000, 'price' => 75000, 'stock' => 10, 'min' => 3],
-                    ['name' => 'Kahf Triple Protection Sunscreen Serum 31ml', 'cost' => 35000, 'price' => 42000, 'stock' => 3, 'min' => 5],
+                    ['name' => 'Kahf Triple Protection Sunscreen Serum 31ml', 'cost' => 35000, 'price' => 42000, 'stock' => 3, 'min' => 5], // trigger low stock
                 ]
             ],
             'Glad2Glow' => [
@@ -68,7 +86,7 @@ class ProductSeeder extends Seeder
                 'products' => [
                     ['name' => 'Skintific 5X Ceramide Barrier Moisture Gel 30g', 'cost' => 110000, 'price' => 135000, 'stock' => 18, 'min' => 5],
                     ['name' => 'Skintific Mugwort Acne Clay Stick 40g', 'cost' => 75000, 'price' => 89000, 'stock' => 22, 'min' => 5],
-                    ['name' => 'Skintific All Day Light Sunscreen Mist 50ml', 'cost' => 72000, 'price' => 86000, 'stock' => 2, 'min' => 5],
+                    ['name' => 'Skintific All Day Light Sunscreen Mist 50ml', 'cost' => 72000, 'price' => 86000, 'stock' => 2, 'min' => 5], // trigger low stock
                 ]
             ],
             'Scarlett' => [
@@ -324,33 +342,25 @@ class ProductSeeder extends Seeder
             ],
         ];
 
-        // 2. PROSES INSERT DATA
+        // 3. GENERATE DATABASE
         $skuCounter = 101;
         foreach ($brandsData as $brandName => $data) {
-            // Cek atau buat Brand
-            $brand = Brand::firstOrCreate(
-                ['name' => $brandName],
-                [
-                    'slug'  => Str::slug($brandName), // Pastikan ini ada
-                    'image' => 'brands/default.png',
-                ]
-            );
+            $brand = Brand::create([
+                'name' => $brandName,
+                'slug' => Str::slug($brandName),
+                'image' => 'brands/default.png', // Default image
+            ]);
 
-            // Cek atau buat Kategori
-            $category = Category::firstOrCreate(
-                ['name' => $data['cat']],
-                ['slug' => Str::slug($data['cat'])] // Pastikan ini ada
-            );
+            $categoryId = $categories[$data['cat']]->id;
 
-            // Simpan produk
             foreach ($data['products'] as $prod) {
                 Product::create([
-                    'category_id'    => $category->id, // Mengambil ID dari objek $category
+                    'category_id'    => $categoryId,
                     'brand_id'       => $brand->id,
                     'sku'            => 'SKU-' . $skuCounter++,
                     'name'           => $prod['name'],
                     'purchase_price' => $prod['cost'],
-                    'selling_price'  => $prod['price'], // Menggunakan 'selling_price'
+                    'selling_price'  => $prod['price'],
                     'stock'          => $prod['stock'],
                     'min_stock'      => $prod['min'],
                 ]);

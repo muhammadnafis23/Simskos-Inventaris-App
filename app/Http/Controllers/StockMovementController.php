@@ -11,43 +11,54 @@ class StockMovementController extends Controller
 {
     public function create()
     {
-        $products = Product::all();
-        return view('staff.stock-movements.create', compact('products'));
+        // Memuat relasi brand agar logo & nama brand terbaca di kartu kanan
+        $products = Product::with('brand')->get();
+        $recentMovements = StockMovement::with('product')->latest()->take(5)->get();
+        
+        return view('admin.stock_movements.create', compact('products', 'recentMovements'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'type' => 'required|in:in,out',
-            'qty' => 'required|integer|min:1',
-            'note' => 'nullable|string',
+            'type'       => 'required|in:in,out',
+            'qty'        => 'required|integer|min:1',
+            'note'       => 'nullable|string',
         ]);
 
-        DB::transaction(function () use ($validated) {
-            StockMovement::create([
-                ...$validated,
-                'user_id' => auth()->id(),
-            ]);
+        try {
+            DB::transaction(function () use ($validated) {
+                $product = Product::findOrFail($validated['product_id']);
 
-            $product = Product::find($validated['product_id']);
-
-            if ($validated['type'] === 'in') {
-                $product->increment('stock', $validated['qty']);
-            } else {
-                if ($product->stock < $validated['qty']) {
-                    abort(422, 'Stok tidak mencukupi untuk dikurangi.');
+                if ($validated['type'] === 'out' && $product->stock < $validated['qty']) {
+                    throw new \Exception('Stok tidak mencukupi untuk dikurangi.');
                 }
-                $product->decrement('stock', $validated['qty']);
-            }
-        });
 
-        return redirect()->route('stock.create')->with('success','Stok berhasil diperbarui');
+                StockMovement::create([
+                    'product_id' => $validated['product_id'],
+                    'type'       => $validated['type'],
+                    'qty'        => $validated['qty'],
+                    'note'       => $validated['note'] ?? null,
+                    'user_id'    => auth()->id(),
+                ]);
+
+                if ($validated['type'] === 'in') {
+                    $product->increment('stock', $validated['qty']);
+                } else {
+                    $product->decrement('stock', $validated['qty']);
+                }
+            });
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage())->withInput();
+        }
+
+        return redirect()->route('stock.create')->with('success', 'Stok berhasil diperbarui.');
     }
 
     public function index()
     {
-        $movements = StockMovement::with(['product','user'])->latest()->paginate(15);
-        return view('staff.stock-movements.index', compact('movements'));
+        $movements = StockMovement::with(['product', 'user'])->latest()->paginate(15);
+        return view('admin.stock_movements.index', compact('movements'));
     }
 }

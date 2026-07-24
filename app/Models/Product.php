@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'category_id','sku','brand','name','image',
-        'purchase_price','sale_price','stock','min_stock'
+        'name', 
+        'category_id', 
+        'brand_id',
+        'price', 
+        'stock', 
+        'description'
     ];
 
     public function category()
@@ -24,5 +28,10 @@ class Product extends Model
     public function isLowStock(): bool
     {
         return $this->stock <= $this->min_stock;
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 }

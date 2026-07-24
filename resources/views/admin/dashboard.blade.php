@@ -38,17 +38,22 @@
             <div class="px-5 pt-5 pb-3 flex items-center justify-between">
                 <h2 class="text-[17px] font-bold text-[#1C1C1E]">Perlu Restock</h2>
                 @if($lowStock->count() > 0)
-                    <span class="text-[12px] font-semibold px-2 py-0.5 rounded-full bg-[#FF3B30]/10 text-[#FF3B30]">{{ $lowStock->count() }}</span>
+                    <span class="text-[12px] font-semibold px-2.5 py-0.5 rounded-full bg-[#FF3B30]/10 text-[#FF3B30]">{{ $lowStock->count() }}</span>
                 @endif
             </div>
             <div class="divide-y divide-black/5">
                 @forelse($lowStock as $product)
-                    <div class="px-5 py-3.5 flex items-center justify-between">
-                        <div class="min-w-0">
+                    <div class="px-5 py-3.5 flex items-center justify-between gap-4">
+                        <div class="min-w-0 flex-1">
                             <p class="text-[15px] font-medium text-[#1C1C1E] truncate">{{ $product->name }}</p>
-                            <p class="text-[13px] text-[#8E8E93]">{{ $product->brand }}</p>
+                            <p class="text-[13px] text-[#8E8E93]">
+                                {{-- Memanggil nama brand, bukan objek JSON --}}
+                                {{ is_object($product->brand) ? $product->brand->name : ($product->brand ?? 'Tanpa Brand') }}
+                            </p>
                         </div>
-                        <span class="shrink-0 text-[13px] font-semibold text-[#FF3B30] tabular-nums">{{ $product->stock }} / min {{ $product->min_stock }}</span>
+                        <span class="shrink-0 text-[13px] font-semibold text-[#FF3B30] tabular-nums">
+                            {{ $product->stock }} <span class="text-[12px] font-normal text-[#8E8E93]">/ min {{ $product->min_stock }}</span>
+                        </span>
                     </div>
                 @empty
                     <div class="px-5 py-8 text-center">
@@ -73,11 +78,11 @@
                             @endif
                         </div>
                         <div class="min-w-0 flex-1">
-                            <p class="text-[14px] font-medium text-[#1C1C1E] truncate">{{ $m->product->name }}</p>
+                            <p class="text-[14px] font-medium text-[#1C1C1E] truncate">{{ $m->product->name ?? 'Produk' }}</p>
                             <p class="text-[12px] text-[#8E8E93]">{{ $m->created_at->diffForHumans() }}</p>
                         </div>
                         <span class="text-[13px] font-semibold tabular-nums {{ $m->type === 'in' ? 'text-[#114F11]' : 'text-[#FF3B30]' }}">
-                            {{ $m->type === 'in' ? '+' : '−' }}{{ $m->qty }}
+                            {{ $m->type === 'in' ? '+' : '−' }}{{ $m->qty ?? $m->quantity }}
                         </span>
                     </div>
                 @empty

@@ -8,7 +8,8 @@
         <h1 class="text-[32px] font-bold text-[#1C1C1E] tracking-tight">Tambah Produk</h1>
     </div>
 
-    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data" class="space-y-6">
+    {{-- Note: enctype dihapus jika gambar produk sepenuhnya mengikuti gambar brand --}}
+    <form method="POST" action="{{ route('products.store') }}" class="space-y-6">
         @csrf
 
         {{-- Group 1: Info Dasar --}}
@@ -23,12 +24,19 @@
             </div>
 
             <div class="grid grid-cols-2 gap-4">
+                {{-- PERUBAHAN: Brand diganti dari Input Text menjadi Dropdown --}}
                 <div>
                     <label class="block text-[13px] font-medium text-[#3A3A3C] mb-1.5">Brand</label>
-                    <input type="text" name="brand" value="{{ old('brand') }}" required
+                    <select name="brand_id" required
                         class="w-full rounded-xl border-black/10 bg-[#F2F2F7] focus:bg-white focus:ring-2 focus:ring-[#114F11]/40 focus:border-[#114F11] text-[15px] px-4 py-2.5">
-                    @error('brand') <p class="text-[12px] text-[#FF3B30] mt-1">{{ $message }}</p> @enderror
+                        <option value="">Pilih brand</option>
+                        @foreach($brands as $brand)
+                            <option value="{{ $brand->id }}" @selected(old('brand_id') == $brand->id)>{{ $brand->name }}</option>
+                        @endforeach
+                    </select>
+                    @error('brand_id') <p class="text-[12px] text-[#FF3B30] mt-1">{{ $message }}</p> @enderror
                 </div>
+
                 <div>
                     <label class="block text-[13px] font-medium text-[#3A3A3C] mb-1.5">Kategori</label>
                     <select name="category_id" required
@@ -84,14 +92,6 @@
                     <p class="text-[12px] text-[#8E8E93] mt-1">Alert "stok menipis" muncul di dashboard jika stok ≤ angka ini.</p>
                 </div>
             </div>
-        </div>
-
-        {{-- Group 3: Foto --}}
-        <div class="ios-card p-5 space-y-3">
-            <p class="text-[13px] font-semibold text-[#8E8E93] uppercase tracking-wide">Foto Produk</p>
-            <input type="file" name="image" accept="image/*"
-                class="w-full text-[14px] text-[#3A3A3C] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[13px] file:font-semibold file:bg-[#114F11]/10 file:text-[#114F11] hover:file:bg-[#114F11]/20">
-            @error('image') <p class="text-[12px] text-[#FF3B30] mt-1">{{ $message }}</p> @enderror
         </div>
 
         <div class="flex items-center gap-3">
